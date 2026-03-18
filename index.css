@@ -774,10 +774,11 @@ body {
 }
 
 .builder-pfp {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center top;
   background: #222;
 }
 

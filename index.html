@@ -112,14 +112,14 @@
           <div class="mom-avatar">👩</div>
           <div>
             <div class="mom-name">Mom</div>
-            <div class="mom-handle">@yourbiggesthater&fan</div>
+            <div class="mom-handle">@alwayswithyou</div>
           </div>
         </div>
         <div id="mom" class="mom-body"></div>
         <p class="mom-watermark">magic in public</p>
       </div>
       <div class="card-below fade-up">
-        <p>Your mom just reviewed your startup.<br />Screenshot this.</p>
+        <p>Go hug your mom. Say thank you.<br />We forget it, but her love is part of why we keep going.</p>
         <div class="btn-row">
           <button id="dl-mom-btn" class="btn btn-white">↓ Download</button>
         </div>
@@ -142,6 +142,9 @@
           <span class="builder-tag">🛠️ real talk</span>
         </div>
       </div>
+      <div class="card-below fade-up">
+        <p>If these ideas feel right, build them.<br />Ship small. Test fast. Keep what works.</p>
+      </div>
     </section>
 
     <!-- 5. INVESTOR (YC-style) -->
@@ -160,7 +163,7 @@
         <p class="yc-watermark">magic in public · simulated</p>
       </div>
       <div class="card-below fade-up">
-        <p>What would a YC partner really think?<br />Screenshot this and find out if your friends agree.</p>
+        <p>Real investors ask hard questions.<br />The good ones also show you what to fix next.</p>
         <div class="btn-row">
           <button id="dl-yc-btn" class="btn btn-white">↓ Download</button>
         </div>
@@ -307,10 +310,10 @@ Section 2 (Quote):
 A deep, simple quote. Naval Ravikant style. About life, work, or truth. 1 to 2 lines max. Just the quote text, nothing else.
 
 Section 3 (Mom):
-4 to 6 lines. This is a tweet from your mom. She is loving but scared. She does not understand the tech but she understands YOU. She worries about your health, your sleep, your future. She says things like "I just hope you're eating" or "please don't stay up too late again". She half-understands the idea but fully understands the risk. She is proud but won't say it directly. Feels like a real text from a real mom. Use simple words. Add pauses like "I don't know..." or "maybe I'm wrong but...". Each line should hit emotionally. This should be screenshot-worthy.
+4 to 6 lines. This is pure emotional support from a loving mom. No tech talk. No product talk. No analysis. Just warmth, belief, comfort, encouragement, and the kind of love that makes someone want to keep going. She speaks simply. She makes the founder feel safe, seen, and supported. She says things like "I may not understand all this, but I know your heart is in it" or "even if this is hard, I still believe in you". Every line should feel deeply emotional, comforting, and real. This should feel like something that could make someone tear up.
 
 Section 4 (Builder):
-5 to 7 lines. This is a deep, honest review from someone who has built startups before. He has shipped products, failed, shipped again. He is not impressed by ideas, he is impressed by clarity and execution. He speaks simply but every sentence carries weight. He sees through the hype. He tells you what actually matters. He points out the one thing you haven't thought about. He is not negative, he is real. He talks like a friend at 2am who genuinely wants your thing to work. He says things like "Look, the idea is fine. But here's what will actually kill you..." or "The hard part isn't building this. The hard part is getting the first 100 people to care." Make it feel like the founder is reading advice from someone who truly gets it. Every line should feel relatable to anyone building something. This is the most useful section on the page.
+5 to 7 lines. This is practical, highly actionable advice from a real builder who has shipped, failed, learned, and shipped again. Every line should make the founder think: "yes, I should do that next." He should give concrete product, distribution, user, launch, and positioning advice. Not vague thoughts. Real moves. Things to test. Things to cut. Things to focus on. He speaks simply, like a smart founder friend who actually wants this to work. Still honest, still sharp, but useful above everything else.
 
 Section 5 (Investor / YC Partner simulation):
 6 to 8 lines. This is the most important section. You are simulating how a Y Combinator partner would actually think about this idea. Not a generic investor. A YC partner.
@@ -328,7 +331,7 @@ YC partners think in very specific patterns:
 - Or: "I like the problem. I'm not sure about the solution yet."
 - They are direct. No fluff. No encouragement unless earned.
 
-Write this as a YC partner talking directly to the founder. Short punchy lines. Each line should carry real weight. Mix genuine insight with hard questions. Make the founder feel like they just walked out of a real YC office hour. This should be the most useful, sharpest feedback on the entire page.
+Write this as a YC partner talking directly to the founder. Short punchy lines. Each line should carry real weight. Mix hard questions with actual solutions, suggestions, and next-step advice. Don't only challenge the founder. Help them see what to improve. Make it feel like they just walked out of a real YC office hour with both pressure and clarity.
 
 Section 6 (Brutal Truth):
 One line only. Must hit emotionally. This is the peak moment.
@@ -470,9 +473,9 @@ Your response MUST be exactly 10 sections separated by ---. Nothing else.`;
       return {
         summary: s[0] || "Something interesting.",
         quote: s[1] || "Play long term games with long term people.",
-        mom: s[2] || "I don't fully understand this…\nBut I can see you're trying.",
-        builder: s[3] || "This sounds fine.\nBut will people come back?",
-        investor: s[4] || "I've seen this before. What's different?",
+        mom: s[2] || "I may not understand all of this.\nBut I know your heart is in it.\nPlease don't lose faith in yourself.\nI'm already proud of you.",
+        builder: s[3] || "Pick one user first.\nBuild only what solves their pain.\nTalk to them before you ship more.\nIf they don't come back, fix that before anything else.",
+        investor: s[4] || "Who is this for on day one?\nWhy will they need it now, not later?\nYour pitch is still too broad.\nTighten the wedge.\nShow one sharp use case people really want.",
         brutal: s[5] || "This won't fail loudly. It will just be ignored.",
         unique: s[6] || "5/10\nSomewhat fresh",
         demand: s[7] || "5/10\nSome want it",
