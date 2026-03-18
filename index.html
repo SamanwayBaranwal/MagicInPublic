@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magic.</title>
+  <meta name="description" content="How would real people react to your idea?" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- GATE -->
+  <main id="gate" class="gate">
+    <!-- Floating geometric shapes -->
+    <div class="gate-shapes" aria-hidden="true">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+      <div class="shape shape-5"></div>
+    </div>
+
+    <!-- Hero -->
+    <div class="gate-hero">
+      <div class="gate-badge">AI-Powered Startup Analyzer</div>
+      <h1 class="gate-brand">Magic<span class="brand-dot">.</span></h1>
+      <p class="gate-subtitle">Drop your startup idea. Get raw, unfiltered reactions from your Mom, a YC Partner, and a Builder who shipped 3 startups.</p>
+    </div>
+
+    <!-- Input -->
+    <div class="gate-wrap">
+      <textarea id="idea" class="gate-input" placeholder="Describe your startup idea..." rows="2"></textarea>
+      <button id="go" class="gate-btn">
+        <span class="btn-icon">&#x2728;</span> Show me the truth
+      </button>
+    </div>
+
+    <!-- Feature pills -->
+    <div class="gate-features">
+      <div class="feature-pill"><span class="pill-icon">&#x1F469;</span> Mom's Reaction</div>
+      <div class="feature-pill"><span class="pill-icon">&#x1F6E0;&#xFE0F;</span> Builder Review</div>
+      <div class="feature-pill"><span class="pill-icon">&#x1F4CA;</span> YC-Style Analysis</div>
+      <div class="feature-pill"><span class="pill-icon">&#x1F525;</span> Brutal Truth</div>
+    </div>
+
+    <!-- Creator -->
+    <footer class="gate-footer">
+      <p class="footer-made">built by</p>
+      <p class="footer-name">Samanway Baranwal</p>
+      <div class="footer-socials">
+        <a href="https://twitter.com/0xSamanway" target="_blank" rel="noopener" class="social-link">X @0xSamanway</a>
+        <a href="https://instagram.com/samanway.base.eth" target="_blank" rel="noopener" class="social-link">IG samanway.base.eth</a>
+        <a href="https://github.com/samanwaybaranwal" target="_blank" rel="noopener" class="social-link">GH samanwaybaranwal</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- LOADING -->
+  <div id="loading" class="loading">
+    <p id="load-msg" class="loading-msg">Your mom is thinking…</p>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="results">
+
+    <!-- 1. NAVAL TWEET CARD -->
+    <section class="screen">
+      <p class="intro-text fade-up">I think you'll relate to this.</p>
+
+      <div id="tweet-card" class="tweet-card fade-up">
+        <div class="tweet-top">
+          <img src="/public/naval.jpg" alt="Naval" class="tweet-pfp" />
+          <div class="tweet-meta">
+            <span class="tweet-name">Naval Ravikant</span>
+            <span class="tweet-handle">@naval</span>
+          </div>
+        </div>
+        <p id="tweet-quote" class="tweet-body"></p>
+        <p class="tweet-watermark">magic in public</p>
+      </div>
+
+      <div class="card-below fade-up">
+        <p>Download and post this on X<br />Tag @magicinpublic</p>
+        <div class="btn-row">
+          <button id="dl-btn" class="btn btn-white">↓ Download</button>
+          <a id="share-btn" class="btn btn-outline" href="#" target="_blank" rel="noopener">Share on X</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. TRANSITION -->
+    <section class="screen">
+      <div class="transition-emoji fade-up">👀</div>
+      <p class="transition-text fade-up">Let's see how people around you would react…</p>
+      <div class="transition-hint fade-up">swipe or tap next</div>
+    </section>
+
+    <!-- 3. MOM -->
+    <section class="screen">
+      <span class="screen-label">Mom</span>
+      <div id="mom-card" class="mom-card fade-up">
+        <div class="mom-card-top">
+          <div class="mom-avatar">👩</div>
+          <div>
+            <div class="mom-name">Mom</div>
+            <div class="mom-handle">@yourbiggesthater&fan</div>
+          </div>
+        </div>
+        <div id="mom" class="mom-body"></div>
+        <p class="mom-watermark">magic in public</p>
+      </div>
+      <div class="card-below fade-up">
+        <p>Your mom just reviewed your startup.<br />Screenshot this.</p>
+        <div class="btn-row">
+          <button id="dl-mom-btn" class="btn btn-white">↓ Download</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BUILDER -->
+    <section class="screen">
+      <span class="screen-label">The Builder</span>
+      <div class="builder-card fade-up">
+        <div class="builder-card-top">
+          <img src="/public/bob.jpg" alt="The Builder" class="builder-pfp" />
+          <div>
+            <div class="builder-name">The Builder</div>
+            <div class="builder-handle">shipped 3 startups, got funded by YC, mass-quit twice</div>
+          </div>
+        </div>
+        <div id="builder" class="builder-body"></div>
+        <div class="builder-footer">
+          <span class="builder-tag">🛠️ real talk</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. INVESTOR (YC-style) -->
+    <section class="screen">
+      <span class="screen-label">The Investor</span>
+      <p class="yc-disclaimer fade-up">This is not real Y Combinator. This is an AI simulation of how YC partners think.</p>
+      <div id="yc-card" class="yc-card fade-up">
+        <div class="yc-card-top">
+          <img src="/public/yc.png" alt="YC" class="yc-pfp" />
+          <div>
+            <div class="yc-name">Y Combinator Partner</div>
+            <div class="yc-handle">simulated · not affiliated with YC</div>
+          </div>
+        </div>
+        <div id="investor" class="yc-body"></div>
+        <p class="yc-watermark">magic in public · simulated</p>
+      </div>
+      <div class="card-below fade-up">
+        <p>What would a YC partner really think?<br />Screenshot this and find out if your friends agree.</p>
+        <div class="btn-row">
+          <button id="dl-yc-btn" class="btn btn-white">↓ Download</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. BRUTAL TRUTH -->
+    <section class="screen">
+      <span class="screen-label">The Brutal Truth</span>
+      <div class="brutal-wrap fade-up">
+        <span class="brutal-quote-mark">“</span>
+        <p id="brutal" class="brutal-line"></p>
+        <span class="brutal-quote-mark closing">”</span>
+      </div>
+      <div class="brutal-line-accent fade-up"></div>
+    </section>
+
+    <!-- 7. SCORE + CTA -->
+    <section class="screen">
+      <span class="screen-label">The Numbers</span>
+      <p class="numbers-subtitle fade-up">Here's how your idea stacks up</p>
+      <div class="score-grid fade-up">
+        <div class="score-item">
+          <p class="score-label">Uniqueness</p>
+          <p id="s-uniq-n" class="score-num"></p>
+          <p id="s-uniq-t" class="score-note"></p>
+        </div>
+        <div class="score-item">
+          <p class="score-label">Demand</p>
+          <p id="s-dem-n" class="score-num"></p>
+          <p id="s-dem-t" class="score-note"></p>
+        </div>
+        <div class="score-item">
+          <p class="score-label">Difficulty</p>
+          <p id="s-diff-n" class="score-num"></p>
+          <p id="s-diff-t" class="score-note"></p>
+        </div>
+        <div class="score-item">
+          <p class="score-label">Stickiness</p>
+          <p id="s-stick-n" class="score-num"></p>
+          <p id="s-stick-t" class="score-note"></p>
+        </div>
+      </div>
+      <div class="final-cta fade-up">
+        <button id="edit-btn" class="btn btn-outline">Edit Idea</button>
+        <a id="final-share" class="btn btn-white" href="#" target="_blank" rel="noopener">Share on X</a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- PAGE NAV -->
+  <div id="page-nav" class="page-nav">
+    <div id="nav-dots" class="nav-dots"></div>
+    <button id="nav-next" class="nav-next">Next →</button>
+  </div>
+
+  <div id="toast" class="toast hidden">Image saved!</div>
+
+  <script>
+    /* --- DOM --- */
+    const gate = document.getElementById('gate');
+    const idea = document.getElementById('idea');
+    const goBtn = document.getElementById('go');
+    const loading = document.getElementById('loading');
+    const loadMsg = document.getElementById('load-msg');
+    const results = document.getElementById('results');
+    const tweetQuote = document.getElementById('tweet-quote');
+    const tweetCard = document.getElementById('tweet-card');
+    const dlBtn = document.getElementById('dl-btn');
+    const shareBtn = document.getElementById('share-btn');
+    const momEl = document.getElementById('mom');
+    const momCard = document.getElementById('mom-card');
+    const dlMomBtn = document.getElementById('dl-mom-btn');
+    const builderEl = document.getElementById('builder');
+    const investorEl = document.getElementById('investor');
+    const ycCard = document.getElementById('yc-card');
+    const dlYcBtn = document.getElementById('dl-yc-btn');
+    const brutalEl = document.getElementById('brutal');
+    const editBtn = document.getElementById('edit-btn');
+    const finalShare = document.getElementById('final-share');
+    const toast = document.getElementById('toast');
+    const pageNav = document.getElementById('page-nav');
+    const navDots = document.getElementById('nav-dots');
+    const navNext = document.getElementById('nav-next');
+
+    /* --- Auto-expand textarea (no scrollbar ever) --- */
+    idea.addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+      if (this.scrollHeight > 200) {
+        this.style.overflowY = 'auto';
+      } else {
+        this.style.overflowY = 'hidden';
+      }
+    });
+
+    /* --- Config --- */
+    const API_KEY = 'sk-hc-v1-21035f0baaa849a6825de990897b53e650755ce570024aa5a34314e232d793d8';
+    const MODEL = 'qwen/qwen3-vl-235b-a22b-instruct';
+
+    /* --- System Prompt --- */
+    const SYSTEM_PROMPT = `You are Magic. You make people feel something real about their startup idea.
+
+You are NOT an AI tool. You are an emotional experience.
+When someone tells you their idea, you respond as if real people in their life are reacting to it.
+
+RULES:
+- Use very simple English. No complex words.
+- No corporate tone. No startup jargon.
+- Never use words like: scalable, monetization, retention, value proposition, leverage, comprehensive, ensure, delve.
+- Write like a real person speaking.
+- Use short sentences.
+- Add pauses like: "I don't know...", "maybe...", "it just feels like..."
+- Do NOT sound like AI.
+- Every line should feel personal and real.
+- No em dashes. Use periods or commas.
+
+OUTPUT FORMAT:
+Respond with exactly 10 sections separated by --- on its own line.
+Each section is raw text only. No labels. No markdown. No headings.
+
+Section 1 (Summary):
+One clean line summarizing the idea. Simple. Human.
+
+Section 2 (Quote):
+A deep, simple quote. Naval Ravikant style. About life, work, or truth. 1 to 2 lines max. Just the quote text, nothing else.
+
+Section 3 (Mom):
+4 to 6 lines. This is a tweet from your mom. She is loving but scared. She does not understand the tech but she understands YOU. She worries about your health, your sleep, your future. She says things like "I just hope you're eating" or "please don't stay up too late again". She half-understands the idea but fully understands the risk. She is proud but won't say it directly. Feels like a real text from a real mom. Use simple words. Add pauses like "I don't know..." or "maybe I'm wrong but...". Each line should hit emotionally. This should be screenshot-worthy.
+
+Section 4 (Builder):
+5 to 7 lines. This is a deep, honest review from someone who has built startups before. He has shipped products, failed, shipped again. He is not impressed by ideas, he is impressed by clarity and execution. He speaks simply but every sentence carries weight. He sees through the hype. He tells you what actually matters. He points out the one thing you haven't thought about. He is not negative, he is real. He talks like a friend at 2am who genuinely wants your thing to work. He says things like "Look, the idea is fine. But here's what will actually kill you..." or "The hard part isn't building this. The hard part is getting the first 100 people to care." Make it feel like the founder is reading advice from someone who truly gets it. Every line should feel relatable to anyone building something. This is the most useful section on the page.
+
+Section 5 (Investor / YC Partner simulation):
+6 to 8 lines. This is the most important section. You are simulating how a Y Combinator partner would actually think about this idea. Not a generic investor. A YC partner.
+
+YC partners think in very specific patterns:
+- They care about founders more than ideas. "Why are YOU the right person to build this?"
+- They look for something that feels like a monopoly, not a business. "Can this become the default?"
+- They hate ideas that sound big but are actually small. They love ideas that sound small but are actually huge.
+- They ask: "Who are your first 10 users and do they LOVE it? Not like it. Love it."
+- They think about growth. Not revenue first. "Does this spread on its own?"
+- They look for the insight. "What do you know that nobody else knows?"
+- They are allergic to complexity. "If you can't explain it in one sentence, you don't understand it."
+- They often say things like: "This is a tarpit idea. Looks obvious, lots of people try, nobody wins."
+- Or: "The market is there. The question is whether you can get distribution before someone else does."
+- Or: "I like the problem. I'm not sure about the solution yet."
+- They are direct. No fluff. No encouragement unless earned.
+
+Write this as a YC partner talking directly to the founder. Short punchy lines. Each line should carry real weight. Mix genuine insight with hard questions. Make the founder feel like they just walked out of a real YC office hour. This should be the most useful, sharpest feedback on the entire page.
+
+Section 6 (Brutal Truth):
+One line only. Must hit emotionally. This is the peak moment.
+
+Section 7 (Uniqueness):
+Format: number/10
+Next line: one short phrase.
+
+Section 8 (Demand):
+Same format.
+
+Section 9 (Difficulty):
+Same format.
+
+Section 10 (Stickiness):
+Same format.
+
+Your response MUST be exactly 10 sections separated by ---. Nothing else.`;
+
+    /* --- Loading --- */
+    const msgs = [
+      "Your mom is thinking…",
+      "Someone is judging your idea…",
+      "Looking at this from real life…",
+      "This might hurt a little…"
+    ];
+    let loadTimer;
+    function startLoad() {
+      let i = 0;
+      loadMsg.textContent = msgs[0];
+      loadTimer = setInterval(() => {
+        i++;
+        if (i < msgs.length) {
+          loadMsg.style.opacity = '0';
+          setTimeout(() => {
+            loadMsg.textContent = msgs[i];
+            loadMsg.style.opacity = '1';
+          }, 280);
+        }
+      }, 1500);
+    }
+    function stopLoad() { clearInterval(loadTimer); }
+
+    /* --- Textarea resize --- */
+    idea.addEventListener('input', () => {
+      idea.style.height = 'auto';
+      idea.style.height = idea.scrollHeight + 'px';
+    });
+
+    /* --- Fade observer --- */
+    // (removed — now handled by .screen.active .fade-up in CSS)
+
+    /* --- Page Navigation --- */
+    let pages = [];
+    let currentPage = 0;
+
+    function initPages() {
+      pages = document.querySelectorAll('#results .screen');
+      navDots.innerHTML = '';
+      pages.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.classList.add('nav-dot');
+        dot.addEventListener('click', () => goToPage(i));
+        navDots.appendChild(dot);
+      });
+    }
+
+    function goToPage(idx) {
+      if (idx < 0 || idx >= pages.length) return;
+      pages.forEach(p => p.classList.remove('active'));
+      pages[idx].classList.add('active');
+      currentPage = idx;
+
+      // Update dots
+      navDots.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+
+      // Update next button text
+      if (idx === pages.length - 1) {
+        navNext.textContent = 'Start Over';
+      } else {
+        navNext.textContent = 'Next →';
+      }
+    }
+
+    navNext.addEventListener('click', () => {
+      if (currentPage === pages.length - 1) {
+        // Start over
+        results.classList.remove('active');
+        pageNav.classList.remove('active');
+        gate.classList.remove('hidden');
+        idea.focus();
+      } else {
+        goToPage(currentPage + 1);
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!results.classList.contains('active')) return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (currentPage < pages.length - 1) goToPage(currentPage + 1);
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentPage > 0) goToPage(currentPage - 1);
+      }
+    });
+
+    /* --- API --- */
+    async function callAPI(text) {
+      const r = await fetch('/api/analyse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          _apiKey: API_KEY, model: MODEL,
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: text }
+          ],
+          max_tokens: 1500, temperature: 0.9
+        })
+      });
+      if (!r.ok) throw new Error('API error ' + r.status);
+      const d = await r.json();
+      return d.choices[0].message.content;
+    }
+
+    /* --- Parse --- */
+    function parse(raw) {
+      const s = raw.split('---').map(x => x.trim()).filter(x => x);
+      return {
+        summary: s[0] || "Something interesting.",
+        quote: s[1] || "Play long term games with long term people.",
+        mom: s[2] || "I don't fully understand this…\nBut I can see you're trying.",
+        builder: s[3] || "This sounds fine.\nBut will people come back?",
+        investor: s[4] || "I've seen this before. What's different?",
+        brutal: s[5] || "This won't fail loudly. It will just be ignored.",
+        unique: s[6] || "5/10\nSomewhat fresh",
+        demand: s[7] || "5/10\nSome want it",
+        diff: s[8] || "5/10\nMedium effort",
+        stick: s[9] || "5/10\nMight return"
+      };
+    }
+
+    function scoreBlock(block) {
+      const l = block.split('\n').map(x => x.trim()).filter(x => x);
+      return { num: l[0] || "5/10", note: l[1] || "" };
+    }
+
+    function lines(el, text) {
+      el.innerHTML = '';
+      text.split('\n').map(l => l.trim()).forEach(l => {
+        const p = document.createElement('p');
+        p.textContent = l;
+        el.appendChild(p);
+      });
+    }
+
+    function shareURL(summary) {
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(summary + '\n\n@magicinpublic')}`;
+    }
+
+    /* --- Populate --- */
+    function fill(d) {
+      tweetQuote.textContent = d.quote.replace(/^["']|["']$/g, '');
+
+      const url = shareURL(d.summary);
+      shareBtn.href = url;
+      finalShare.href = url;
+
+      lines(momEl, d.mom);
+      lines(builderEl, d.builder);
+      lines(investorEl, d.investor);
+      brutalEl.textContent = d.brutal;
+
+      const u = scoreBlock(d.unique);
+      document.getElementById('s-uniq-n').textContent = u.num;
+      document.getElementById('s-uniq-t').textContent = u.note;
+
+      const dm = scoreBlock(d.demand);
+      document.getElementById('s-dem-n').textContent = dm.num;
+      document.getElementById('s-dem-t').textContent = dm.note;
+
+      const df = scoreBlock(d.diff);
+      document.getElementById('s-diff-n').textContent = df.num;
+      document.getElementById('s-diff-t').textContent = df.note;
+
+      const st = scoreBlock(d.stick);
+      document.getElementById('s-stick-n').textContent = st.num;
+      document.getElementById('s-stick-t').textContent = st.note;
+    }
+
+    /* --- Download --- */
+    dlBtn.addEventListener('click', () => {
+      html2canvas(tweetCard, {
+        backgroundColor: '#111111',
+        scale: 2, useCORS: true
+      }).then(c => {
+        const a = document.createElement('a');
+        a.download = 'magic-in-public.png';
+        a.href = c.toDataURL('image/png');
+        a.click();
+        toast.classList.remove('hidden');
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
+      });
+    });
+
+    /* --- Download Mom Card --- */
+    dlMomBtn.addEventListener('click', () => {
+      html2canvas(momCard, {
+        backgroundColor: '#111111',
+        scale: 2, useCORS: true
+      }).then(c => {
+        const a = document.createElement('a');
+        a.download = 'magic-mom-review.png';
+        a.href = c.toDataURL('image/png');
+        a.click();
+        toast.classList.remove('hidden');
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
+      });
+    });
+
+    /* --- Download YC Card --- */
+    dlYcBtn.addEventListener('click', () => {
+      html2canvas(ycCard, {
+        backgroundColor: '#0f0f0f',
+        scale: 2, useCORS: true
+      }).then(c => {
+        const a = document.createElement('a');
+        a.download = 'magic-yc-review.png';
+        a.href = c.toDataURL('image/png');
+        a.click();
+        toast.classList.remove('hidden');
+        toast.classList.add('show');
+        setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
+      });
+    });
+
+    /* --- Edit --- */
+    editBtn.addEventListener('click', () => {
+      results.classList.remove('active');
+      pageNav.classList.remove('active');
+      gate.classList.remove('hidden');
+      idea.focus();
+    });
+
+    /* --- Go --- */
+    goBtn.addEventListener('click', () => {
+      const text = idea.value.trim();
+      if (!text) return;
+
+      gate.classList.add('hidden');
+      loading.classList.add('active');
+      startLoad();
+
+      const t0 = Date.now();
+
+      callAPI(text)
+        .then(raw => {
+          const wait = Math.max(0, 5000 - (Date.now() - t0));
+          setTimeout(() => {
+            stopLoad();
+            loading.classList.remove('active');
+            fill(parse(raw));
+            results.classList.add('active');
+            pageNav.classList.add('active');
+            initPages();
+            goToPage(0);
+          }, wait);
+        })
+        .catch(err => {
+          stopLoad();
+          loading.classList.remove('active');
+          gate.classList.remove('hidden');
+          alert("Something went wrong. " + err.message);
+        });
+    });
+  </script>
+</body>
+
+</html>
