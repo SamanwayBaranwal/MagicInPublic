@@ -210,10 +210,28 @@
       </div>
     </section>
 
+    <!-- 8. FINAL CTA -->
+    <section class="screen">
+      <div class="final-heart fade-up">&#x1F49C;</div>
+      <div class="final-message fade-up">
+        <p>hey.</p>
+        <p>if this made you feel something.</p>
+        <p>if it made you laugh, or think, or maybe even believe a little more in your idea.</p>
+        <p>i'd love to hear from you.</p>
+        <p class="final-highlight">tweet with <span class="final-hashtag">#MagicInPublic</span></p>
+        <p>i'll personally reply to every single one.</p>
+        <p>not a bot. not a template. me.</p>
+        <p class="final-sign">thank you for trying this. it means more than you know.</p>
+        <p class="final-name">— samanway</p>
+      </div>
+      <a class="btn btn-white fade-up" href="https://twitter.com/intent/tweet?text=just%20tried%20%23MagicInPublic%20and%20it%20actually%20made%20me%20feel%20something%20about%20my%20startup%20idea%20%F0%9F%92%9C&url=https://magicinpublic.vercel.app" target="_blank" rel="noopener">Tweet #MagicInPublic</a>
+    </section>
+
   </div>
 
   <!-- PAGE NAV -->
   <div id="page-nav" class="page-nav">
+    <button id="nav-back" class="nav-back">← Back</button>
     <div id="nav-dots" class="nav-dots"></div>
     <button id="nav-next" class="nav-next">Next →</button>
   </div>
@@ -246,6 +264,7 @@
     const pageNav = document.getElementById('page-nav');
     const navDots = document.getElementById('nav-dots');
     const navNext = document.getElementById('nav-next');
+    const navBack = document.getElementById('nav-back');
 
     /* --- Auto-expand textarea (no scrollbar ever) --- */
     idea.addEventListener('input', function() {
@@ -394,7 +413,14 @@ Your response MUST be exactly 10 sections separated by ---. Nothing else.`;
       } else {
         navNext.textContent = 'Next →';
       }
+
+      // Show/hide back button
+      navBack.style.visibility = idx === 0 ? 'hidden' : 'visible';
     }
+
+    navBack.addEventListener('click', () => {
+      if (currentPage > 0) goToPage(currentPage - 1);
+    });
 
     navNext.addEventListener('click', () => {
       if (currentPage === pages.length - 1) {
