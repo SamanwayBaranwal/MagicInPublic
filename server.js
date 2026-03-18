@@ -1,9 +1,17 @@
+require('dotenv').config();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const API_KEY = process.env.API_KEY;
+const MODEL = process.env.MODEL || 'qwen/qwen3-vl-235b-a22b-instruct';
+
+if (!API_KEY) {
+  console.error('\n  ❌ Missing API_KEY in .env file. Create a .env with:\n     API_KEY=your-key-here\n');
+  process.exit(1);
+}
 
 const MIME_TYPES = {
   '.html': 'text/html',
@@ -17,61 +25,56 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  // --- API Proxy ---
+  // --- API Proxy (key stays server-side) ---
   if (req.method === 'POST' && req.url === '/api/analyse') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
-      const parsed = JSON.parse(body);
+      try {
+        const parsed = JSON.parse(body);
 
-      const postData = JSON.stringify(parsed);
-
-      const options = {
-        hostname: 'ai.hackclub.com',
-        port: 443,
-        path: '/proxy/v1/chat/completions',
-        method: 'POST',
-        headers: {
-          'Authorization': parsed._apiKey ? `Bearer ${parsed._apiKey}` : '',
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(JSON.stringify({
-            model: parsed.model,
-            messages: parsed.messages,
-            max_tokens: parsed.max_tokens,
-            temperature: parsed.temperature,
-          })),
-        },
-      };
-
-      // Remove internal _apiKey before forwarding
-      const forwardBody = JSON.stringify({
-        model: parsed.model,
-        messages: parsed.messages,
-        max_tokens: parsed.max_tokens,
-        temperature: parsed.temperature,
-      });
-
-      const apiReq = https.request(options, apiRes => {
-        let data = '';
-        apiRes.on('data', chunk => data += chunk);
-        apiRes.on('end', () => {
-          res.writeHead(apiRes.statusCode, {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          });
-          res.end(data);
+        const forwardBody = JSON.stringify({
+          model: MODEL,
+          messages: parsed.messages,
+          max_tokens: parsed.max_tokens || 1500,
+          temperature: parsed.temperature || 0.9,
         });
-      });
 
-      apiReq.on('error', err => {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: err.message }));
-      });
+        const options = {
+          hostname: 'ai.hackclub.com',
+          port: 443,
+          path: '/proxy/v1/chat/completions',
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(forwardBody),
+          },
+        };
 
-      // Fix: send the cleaned body
-      options.headers['Content-Length'] = Buffer.byteLength(forwardBody);
-      apiReq.write(forwardBody);
-      apiReq.end();
+        const apiReq = https.request(options, apiRes => {
+          let data = '';
+          apiRes.on('data', chunk => data += chunk);
+          apiRes.on('end', () => {
+            res.writeHead(apiRes.statusCode, {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            });
+            res.end(data);
+          });
+        });
+
+        apiReq.on('error', err => {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        });
+
+        apiReq.write(forwardBody);
+        apiReq.end();
+      } catch (err) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid request body' }));
+      }
     });
     return;
   }
