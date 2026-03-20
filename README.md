@@ -24,9 +24,22 @@ An AI-powered startup idea analyzer designed to give you raw, unfiltered reactio
 - **Typography:** `Instrument Serif` for a premium cinematic display, matched with `Inter` for hyper-legible body text.
 - **Aesthetic:** "Retina Glass" — heavy use of backdrop-blur, semi-transparent liquid-glass borders, subtle inner shadows, and dynamic gradient overlays.
 
+## Deploy to Vercel (Recommended)
+
+This project is perfectly optimized for **Vercel Serverless**. The frontend is static, and the backend securely runs via a Serverless function in the `api/` folder. This ensures infinite scaling, zero cold-starts, and **100% security for your API Key**.
+
+1. Create an account on [Vercel.com](https://vercel.com) and connect your GitHub.
+2. Import the `MagicInPublic` repository.
+3. Before clicking deploy, go to **Environment Variables** and add:
+   - Name: `API_KEY`
+   - Value: `your_hack_club_api_key_here`
+4. Click **Deploy**. Vercel will automatically serve the frontend and route requests to the secure `api/analyse.js` serverless function. 
+
+*Your API key never touches the browser.*
+
 ## Run Locally
 
-The entire application runs from a single unified server. No separate frontend dev servers required.
+If you want to test it locally before deploying:
 
 ```bash
 git clone https://github.com/samanwaybaranwal/MagicInPublic.git
@@ -38,7 +51,7 @@ npm install
 # Add your Hack Club API key to a .env file
 echo "API_KEY=your_api_key_here" > .env
 
-# Start the server
+# Start the local server
 node server.js
 ```
 
