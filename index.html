@@ -316,6 +316,7 @@ RULES:
 OUTPUT FORMAT:
 Respond with exactly 10 sections separated by --- on its own line.
 Each section is raw text only. No markdown headings. No bold. No asterisks. No emojis.
+CRITICAL: The separator --- must ONLY appear BETWEEN sections. NEVER use --- inside any section. You must output EXACTLY 9 separator lines total.
 
 Section 1 (Summary):
 One clean line summarizing the idea. Simple. Human.
@@ -333,6 +334,7 @@ Every line should hit harder BECAUSE it's short.
 
 Section 4 (Builder):
 This is a ruthless, specific, slightly annoyed builder who shipped 3 startups. He hates fluff. He talks in actions, not philosophy.
+Do NOT use --- anywhere inside this section. All of the following goes in ONE section:
 
 Structure his response EXACTLY like this:
 
@@ -349,6 +351,8 @@ Use real platforms, real numbers, real actions.
 Then add a decision line:
 If 0 people say yes, stop.
 If 3+ say yes, continue.
+
+Remember: ALL of the above is ONE section. Do NOT put --- anywhere inside it.
 
 Section 5 (Investor / YC Partner simulation):
 Not a generic investor. A sharp, skeptical YC partner. He only asks questions that force clarity. No essays. No storytelling.
@@ -394,7 +398,8 @@ Same format.
 Section 10 (Stickiness):
 Same format.
 
-Your response MUST be exactly 10 sections separated by ---. Nothing else. No emojis anywhere.`;
+Your response MUST be exactly 10 sections separated by ---. Nothing else. No emojis anywhere.
+REMINDER: Only 9 separator lines (---) in the entire response. Never put --- inside a section.`;
 
     /* --- Loading --- */
     const msgs = [
@@ -514,11 +519,17 @@ Your response MUST be exactly 10 sections separated by ---. Nothing else. No emo
 
     /* --- Parse --- */
     function parse(raw) {
-      const s = raw.split('---').map(x => x.trim()).filter(x => x);
+      let s = raw.split('---').map(x => x.trim()).filter(x => x);
+      // If AI produced more than 10 sections (extra --- inside builder/investor),
+      // merge the extras back into section 4 (builder, index 3)
+      while (s.length > 10) {
+        s[3] = s[3] + '\n' + s[4];
+        s.splice(4, 1);
+      }
       return {
         summary: s[0] || "Something interesting.",
         quote: s[1] || "Play long term games with long term people.",
-        mom: s[2] || "I may not understand all of this.\nBut I know your heart is in it.\nPlease don't lose faith in yourself.\nI'm already proud of you.",
+        mom: s[2] || "I don't understand what you're building.\nBut I see how serious you are.\nPlease don't burn out.\nI'm already proud of you.",
         builder: s[3] || "Pick one user first.\nBuild only what solves their pain.\nTalk to them before you ship more.\nIf they don't come back, fix that before anything else.",
         investor: s[4] || "Who is this for on day one?\nWhy will they need it now, not later?\nYour pitch is still too broad.\nTighten the wedge.\nShow one sharp use case people really want.",
         brutal: s[5] || "This won't fail loudly. It will just be ignored.",
