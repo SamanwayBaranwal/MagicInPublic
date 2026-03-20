@@ -25,6 +25,18 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
+  // --- CORS preflight ---
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    });
+    res.end();
+    return;
+  }
+
   // --- API Proxy (key stays server-side) ---
   if (req.method === 'POST' && req.url === '/api/analyse') {
     let body = '';

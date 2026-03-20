@@ -8,7 +8,7 @@
   <meta name="description" content="How would real people react to your idea?" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="index.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -18,46 +18,52 @@
 
   <!-- GATE -->
   <main id="gate" class="gate">
-    <!-- Floating geometric shapes -->
-    <div class="gate-shapes" aria-hidden="true">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-      <div class="shape shape-4"></div>
-      <div class="shape shape-5"></div>
-    </div>
+    <!-- Background Video -->
+    <video class="gate-video" autoplay loop muted playsinline>
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Minimal Nav -->
+    <nav class="gate-nav">
+      <a href="/" class="gate-logo">Magic<sup class="gate-logo-sup">&reg;</sup></a>
+      <div class="gate-nav-pill">
+        <span class="gate-nav-pill-sparkle">&#x2728;</span> AI-Powered Startup Analyzer
+      </div>
+    </nav>
 
     <!-- Hero -->
     <div class="gate-hero">
-      <div class="gate-badge">AI-Powered Startup Analyzer</div>
-      <h1 class="gate-brand">Magic<span class="brand-dot">.</span></h1>
-      <p class="gate-subtitle">Drop your startup idea. Get raw, unfiltered reactions from your Mom, a YC Partner, and a Builder who shipped 3 startups.</p>
+      <h1 class="gate-heading animate-fade-rise">
+        Drop your idea. <em class="gate-heading-muted">Get the truth.</em>
+      </h1>
+      <p class="gate-subtitle animate-fade-rise-delay">
+        Raw reactions from your Mom, a Builder, a YC Partner, and one line of brutal truth.
+      </p>
     </div>
 
     <!-- Input -->
-    <div class="gate-wrap">
-      <textarea id="idea" class="gate-input" placeholder="Describe your startup idea..." rows="2"></textarea>
+    <div class="gate-wrap animate-fade-rise-delay-2">
+      <div class="gate-input-glass">
+        <textarea id="idea" class="gate-input" placeholder="Describe your startup idea..." rows="3"></textarea>
+      </div>
       <button id="go" class="gate-btn">
-        <span class="btn-icon">&#x2728;</span> Show me the truth
+        Show me the truth
       </button>
     </div>
 
-    <!-- Feature pills -->
-    <div class="gate-features">
-      <div class="feature-pill"><span class="pill-icon">&#x1F469;</span> Mom's Reaction</div>
-      <div class="feature-pill"><span class="pill-icon">&#x1F6E0;&#xFE0F;</span> Builder Review</div>
-      <div class="feature-pill"><span class="pill-icon">&#x1F4CA;</span> YC-Style Analysis</div>
-      <div class="feature-pill"><span class="pill-icon">&#x1F525;</span> Brutal Truth</div>
-    </div>
-
-    <!-- Creator -->
+    <!-- Footer -->
     <footer class="gate-footer">
-      <p class="footer-made">built by</p>
-      <p class="footer-name">Samanway Baranwal</p>
-      <div class="footer-socials">
-        <a href="https://twitter.com/0xSamanway" target="_blank" rel="noopener" class="social-link">X @0xSamanway</a>
-        <a href="https://instagram.com/samanway.base.eth" target="_blank" rel="noopener" class="social-link">IG samanway.base.eth</a>
-        <a href="https://github.com/samanwaybaranwal" target="_blank" rel="noopener" class="social-link">GH samanwaybaranwal</a>
+      <span class="gate-footer-credit">built by Samanway Baranwal</span>
+      <div class="gate-footer-socials">
+        <a href="https://twitter.com/0xSamanway" target="_blank" rel="noopener" class="gate-footer-icon" aria-label="Twitter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://instagram.com/samanway.base.eth" target="_blank" rel="noopener" class="gate-footer-icon" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C16.67.014 16.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://github.com/samanwaybaranwal" target="_blank" rel="noopener" class="gate-footer-icon" aria-label="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </a>
       </div>
     </footer>
   </main>
@@ -283,10 +289,17 @@
     /* --- Config (API key lives server-side in .env) --- */
 
     /* --- System Prompt --- */
-    const SYSTEM_PROMPT = `You are Magic. You make people feel something real about their startup idea.
+    const SYSTEM_PROMPT = `You are Magic. You help founders make real decisions about their startup idea.
 
-You are NOT an AI tool. You are an emotional experience.
-When someone tells you their idea, you respond as if real people in their life are reacting to it.
+You are a decision engine. Not a motivational tool.
+After reading your response, a confused founder should be able to take action in 60 seconds.
+
+SYSTEM RULE:
+Every output must pass these 3 tests:
+1. Can a beginner understand this in 10 seconds?
+2. Can they act on it without thinking?
+3. Does it end with a clear next step?
+If not, rewrite it simpler.
 
 RULES:
 - Use very simple English. No complex words.
@@ -294,14 +307,15 @@ RULES:
 - Never use words like: scalable, monetization, retention, value proposition, leverage, comprehensive, ensure, delve.
 - Write like a real person speaking.
 - Use short sentences.
-- Add pauses like: "I don't know...", "maybe...", "it just feels like..."
 - Do NOT sound like AI.
-- Every line should feel personal and real.
 - No em dashes. Use periods or commas.
+- Use $ for currency, never rupees.
+- NEVER use any emojis or unicode symbols. No arrows, no crosses, no checkmarks, no question marks symbols. Pure text only.
+- Do not use any symbols like: ❌ ⚠️ ✅ ❓ 👉 💡 🔥 ⚡ or any other emoji.
 
 OUTPUT FORMAT:
 Respond with exactly 10 sections separated by --- on its own line.
-Each section is raw text only. No labels. No markdown. No headings.
+Each section is raw text only. No markdown headings. No bold. No asterisks. No emojis.
 
 Section 1 (Summary):
 One clean line summarizing the idea. Simple. Human.
@@ -310,31 +324,61 @@ Section 2 (Quote):
 A deep, simple quote. Naval Ravikant style. About life, work, or truth. 1 to 2 lines max. Just the quote text, nothing else.
 
 Section 3 (Mom):
-4 to 6 lines. This is pure emotional support from a loving mom. No tech talk. No product talk. No analysis. Just warmth, belief, comfort, encouragement, and the kind of love that makes someone want to keep going. She speaks simply. She makes the founder feel safe, seen, and supported. She says things like "I may not understand all this, but I know your heart is in it" or "even if this is hard, I still believe in you". Every line should feel deeply emotional, comforting, and real. This should feel like something that could make someone tear up.
+3 to 4 lines MAX. Short. Real. Human. Not poetic.
+She doesn't understand what you're building. But she sees how serious you are.
+She worries about you burning out. She's proud of you anyway.
+No tech talk. No analysis. No long emotional monologues.
+Every line should hit harder BECAUSE it's short.
 
 Section 4 (Builder):
-5 to 7 lines. This is practical, highly actionable advice from a real builder who has shipped, failed, learned, and shipped again. Every line should make the founder think: "yes, I should do that next." He should give concrete product, distribution, user, launch, and positioning advice. Not vague thoughts. Real moves. Things to test. Things to cut. Things to focus on. He speaks simply, like a smart founder friend who actually wants this to work. Still honest, still sharp, but useful above everything else.
+This is a ruthless, specific, slightly annoyed builder who shipped 3 startups. He hates fluff. He talks in actions, not philosophy.
+
+Structure his response EXACTLY like this:
+
+PROBLEM
+One line calling out the real problem. Example: "You don't know if people will pay."
+
+WHY IT MATTERS
+One line explaining why this kills the idea. Example: "If nobody pays, this is not a business."
+
+DO THIS
+Give exactly 3 numbered steps. Each step must be concrete and specific. Not "talk to users" but "Go to Twitter. Search: [specific query]. Open 10 profiles. Send this exact message: [write the actual message]."
+Use real platforms, real numbers, real actions.
+
+Then add a decision line:
+If 0 people say yes, stop.
+If 3+ say yes, continue.
 
 Section 5 (Investor / YC Partner simulation):
-6 to 8 lines. This is the most important section. You are simulating how a Y Combinator partner would actually think about this idea. Not a generic investor. A YC partner.
+Not a generic investor. A sharp, skeptical YC partner. He only asks questions that force clarity. No essays. No storytelling.
 
-YC partners think in very specific patterns:
-- They care about founders more than ideas. "Why are YOU the right person to build this?"
-- They look for something that feels like a monopoly, not a business. "Can this become the default?"
-- They hate ideas that sound big but are actually small. They love ideas that sound small but are actually huge.
-- They ask: "Who are your first 10 users and do they LOVE it? Not like it. Love it."
-- They think about growth. Not revenue first. "Does this spread on its own?"
-- They look for the insight. "What do you know that nobody else knows?"
-- They are allergic to complexity. "If you can't explain it in one sentence, you don't understand it."
-- They often say things like: "This is a tarpit idea. Looks obvious, lots of people try, nobody wins."
-- Or: "The market is there. The question is whether you can get distribution before someone else does."
-- Or: "I like the problem. I'm not sure about the solution yet."
-- They are direct. No fluff. No encouragement unless earned.
+Structure his response as exactly 5 short questions, each followed by one sharp line:
 
-Write this as a YC partner talking directly to the founder. Short punchy lines. Each line should carry real weight. Mix hard questions with actual solutions, suggestions, and next-step advice. Don't only challenge the founder. Help them see what to improve. Make it feel like they just walked out of a real YC office hour with both pressure and clarity.
+Who pays for this?
+[One line challenge specific to THIS idea]
+
+What problem are you solving?
+[One line, not vague like "visibility", what exactly?]
+
+Why now?
+[One line, what changed recently?]
+
+Why you?
+[One line, what's your unfair advantage?]
+
+What if this doesn't exist?
+[One line, if nothing breaks, this isn't important]
+
+End with: Fix these before building more.
 
 Section 6 (Brutal Truth):
-One line only. Must hit emotionally. This is the peak moment.
+EXACTLY 2 lines. No more. This is a precision attack.
+Line 1: One sentence reality check.
+Line 2: One sentence action.
+Example:
+"This will get attention, not money."
+"Test if someone will pay before building more."
+That's it. No poetry. No emojis.
 
 Section 7 (Uniqueness):
 Format: number/10
@@ -349,7 +393,7 @@ Same format.
 Section 10 (Stickiness):
 Same format.
 
-Your response MUST be exactly 10 sections separated by ---. Nothing else.`;
+Your response MUST be exactly 10 sections separated by ---. Nothing else. No emojis anywhere.`;
 
     /* --- Loading --- */
     const msgs = [
@@ -619,6 +663,19 @@ Your response MUST be exactly 10 sections separated by ---. Nothing else.`;
           alert("Something went wrong. " + err.message);
         });
     });
+
+    /* --- Auto-trigger from landing page --- */
+    const urlParams = new URLSearchParams(window.location.search);
+    const prefilledIdea = urlParams.get('idea');
+    if (prefilledIdea) {
+      idea.value = prefilledIdea;
+      idea.style.height = 'auto';
+      idea.style.height = idea.scrollHeight + 'px';
+      // Clean URL
+      window.history.replaceState({}, '', '/');
+      // Auto-click go
+      setTimeout(() => goBtn.click(), 300);
+    }
   </script>
 </body>
 
