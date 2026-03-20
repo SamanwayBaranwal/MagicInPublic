@@ -165,11 +165,12 @@ body {
 
 .gate-subtitle {
   font-size: 0.95rem;
-  color: var(--text-mid);
+  color: rgba(255,255,255,0.75);
   max-width: 520px;
   margin: 20px auto 0;
   line-height: 1.6;
   font-weight: 400;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
 }
 
 /* --- Input Section --- */
@@ -350,6 +351,14 @@ body {
 }
 .animate-fade-rise-delay-2 {
   animation: fade-rise 0.8s ease-out 0.4s both;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
 }
 
 

@@ -4,8 +4,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Magic.</title>
-  <meta name="description" content="How would real people react to your idea?" />
+  <title>Magic. | AI-Powered Startup Analyzer</title>
+  <meta name="description" content="Drop your startup idea and get raw, unfiltered reactions from Mom, a Builder, a YC Partner, and one line of brutal truth." />
+  <!-- OG Meta Tags -->
+  <meta property="og:title" content="Magic. | AI-Powered Startup Analyzer" />
+  <meta property="og:description" content="Drop your startup idea and get raw reactions from Mom, a Builder, a YC Partner, and one line of brutal truth." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://magic-in-public.vercel.app" />
+  <meta property="og:image" content="https://magic-in-public.vercel.app/assets/og-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Magic. | AI-Powered Startup Analyzer" />
+  <meta name="twitter:description" content="Drop your startup idea. Get the truth. Raw reactions from Mom, a Builder, a YC Partner." />
+  <meta name="twitter:image" content="https://magic-in-public.vercel.app/assets/og-preview.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -403,10 +413,12 @@ REMINDER: Only 9 separator lines (---) in the entire response. Never put --- ins
 
     /* --- Loading --- */
     const msgs = [
-      "Your mom is thinking…",
-      "Someone is judging your idea…",
-      "Looking at this from real life…",
-      "This might hurt a little…"
+      "Asking Naval for wisdom...",
+      "Your mom is thinking...",
+      "A builder is judging your idea...",
+      "YC partner is reading your pitch...",
+      "Preparing the brutal truth...",
+      "Crunching the numbers..."
     ];
     let loadTimer;
     function startLoad() {
@@ -477,10 +489,12 @@ REMINDER: Only 9 separator lines (---) in the entire response. Never put --- ins
 
     navNext.addEventListener('click', () => {
       if (currentPage === pages.length - 1) {
-        // Start over
+        // Start over — clear the textarea
         results.classList.remove('active');
         pageNav.classList.remove('active');
         gate.classList.remove('hidden');
+        idea.value = '';
+        idea.style.height = 'auto';
         idea.focus();
       } else {
         goToPage(currentPage + 1);
@@ -647,7 +661,14 @@ REMINDER: Only 9 separator lines (---) in the entire response. Never put --- ins
     /* --- Go --- */
     goBtn.addEventListener('click', () => {
       const text = idea.value.trim();
-      if (!text) return;
+      if (!text) {
+        // Shake the input to show it's empty
+        const wrap = document.querySelector('.gate-input-glass');
+        wrap.style.animation = 'shake 0.4s ease';
+        idea.placeholder = 'Type your startup idea first...';
+        setTimeout(() => { wrap.style.animation = ''; }, 400);
+        return;
+      }
 
       gate.classList.add('hidden');
       loading.classList.add('active');
@@ -672,7 +693,9 @@ REMINDER: Only 9 separator lines (---) in the entire response. Never put --- ins
           stopLoad();
           loading.classList.remove('active');
           gate.classList.remove('hidden');
-          alert("Something went wrong. " + err.message);
+          // Show a nicer error
+          const retry = confirm('Something went wrong. Want to try again?');
+          if (retry) goBtn.click();
         });
     });
 
