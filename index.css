@@ -441,6 +441,22 @@ body {
 
 .loading.active { display: flex; }
 
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-top-color: rgba(255,255,255,0.6);
+  animation: spin 0.9s linear infinite;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .loading-msg {
   font-family: 'Instrument Serif', serif;
   font-size: 1.2rem;

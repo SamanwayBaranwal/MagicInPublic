@@ -82,7 +82,8 @@
 
   <!-- LOADING -->
   <div id="loading" class="loading">
-    <p id="load-msg" class="loading-msg">Your mom is thinking…</p>
+    <div class="loading-spinner"></div>
+    <p id="load-msg" class="loading-msg">Consulting the experts...</p>
     <div class="loading-dots"><span></span><span></span><span></span></div>
   </div>
 
@@ -497,7 +498,7 @@ REMINDER: Only 9 separator lines (---) in the entire response. Never put --- ins
 
       // Update next button text
       if (idx === pages.length - 1) {
-        navNext.textContent = 'Start Over';
+        navNext.textContent = 'Analyze Another Idea';
       } else {
         navNext.textContent = 'Next →';
       }
