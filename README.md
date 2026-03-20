@@ -120,3 +120,20 @@ For comparison, a typical Create React App ships ~200KB+ of JavaScript alone.
 - X: [@0xSamanway](https://twitter.com/0xSamanway)
 - IG: [samanway.base.eth](https://instagram.com/samanway.base.eth)
 - GitHub: [samanwaybaranwal](https://github.com/samanwaybaranwal)
+
+## Acknowledgments
+
+A huge thank you to **[Hack Club](https://hackclub.com)** for providing the AI API key that powers this entire project. Without their generous support and the incredible developer community they've built, Magic would not exist. Hack Club gave me the tools, the platform, and the inspiration to ship this.
+
+Shoutout to the Hack Club team for **Flavortown** and the sidequests — they push you to build better, ship faster, and actually care about things like performance and optimization.
+
+## Flavortown
+
+This project is shipped on **Flavortown** and submitted for the **Optimization Sidequest**.
+
+Optimization techniques implemented:
+1. **Lazy Loading** — html2canvas loaded on-demand (saves ~80KB on initial load)
+2. **HTTP Caching** — Cache-Control headers for all static assets via vercel.json
+3. **Minimal Dependencies** — 1 npm package, 88.6KB total page weight, zero framework overhead
+
+See the [Optimization](#optimization) section above for full details with before/after measurements.
