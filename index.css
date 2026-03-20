@@ -238,6 +238,32 @@ body {
 .gate-input::-webkit-scrollbar { display: none; }
 .gate-input::placeholder { color: rgba(255,255,255,0.25); }
 
+.gate-char-count {
+  display: block;
+  text-align: right;
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.3);
+  padding: 2px 8px 6px;
+  font-family: 'Inter', var(--font);
+}
+
+.gate-sample-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.75rem;
+  font-family: 'Inter', var(--font);
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 4px 10px;
+  transition: color 0.2s ease;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.gate-sample-btn:hover {
+  color: rgba(255,255,255,0.7);
+}
+
 .gate-btn {
   margin-top: 16px;
   border-radius: 50px;

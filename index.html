@@ -54,11 +54,13 @@
     <!-- Input -->
     <div class="gate-wrap animate-fade-rise-delay-2">
       <div class="gate-input-glass">
-        <textarea id="idea" class="gate-input" placeholder="Describe your startup idea..." rows="3"></textarea>
+        <textarea id="idea" class="gate-input" placeholder="Describe your startup idea..." rows="3" maxlength="500"></textarea>
+        <span id="char-count" class="gate-char-count">0 / 500</span>
       </div>
       <button id="go" class="gate-btn">
         Show me the truth
       </button>
+      <button id="sample-btn" class="gate-sample-btn">or try a sample idea</button>
     </div>
 
     <!-- Footer -->
@@ -284,6 +286,8 @@
     const navDots = document.getElementById('nav-dots');
     const navNext = document.getElementById('nav-next');
     const navBack = document.getElementById('nav-back');
+    const charCount = document.getElementById('char-count');
+    const sampleBtn = document.getElementById('sample-btn');
 
     /* --- Auto-expand textarea (no scrollbar ever) --- */
     idea.addEventListener('input', function() {
@@ -294,6 +298,25 @@
       } else {
         this.style.overflowY = 'hidden';
       }
+      // Update character counter
+      charCount.textContent = this.value.length + ' / 500';
+    });
+
+    /* --- Sample Ideas --- */
+    const sampleIdeas = [
+      "An app that tells you exactly what bin to put your recycling in by scanning the barcode",
+      "A Chrome extension that summarizes any YouTube video into 3 bullet points before you watch it",
+      "A marketplace where college students sell their class notes to other students",
+      "An AI that reads your resume and tells you exactly which jobs you'd get interviews for",
+      "A mobile app that matches solo travelers with locals who want to show them around their city"
+    ];
+    sampleBtn.addEventListener('click', () => {
+      const pick = sampleIdeas[Math.floor(Math.random() * sampleIdeas.length)];
+      idea.value = pick;
+      idea.style.height = 'auto';
+      idea.style.height = idea.scrollHeight + 'px';
+      charCount.textContent = pick.length + ' / 500';
+      idea.focus();
     });
 
     /* --- Config (API key lives server-side in .env) --- */
