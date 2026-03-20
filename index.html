@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="index.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- html2canvas loaded lazily on first download click -->
 </head>
 
 <body>
@@ -627,53 +627,45 @@ REMINDER: Only 9 separator lines (---) in the entire response. Never put --- ins
       document.getElementById('s-stick-t').textContent = st.note;
     }
 
-    /* --- Download --- */
-    dlBtn.addEventListener('click', () => {
-      html2canvas(tweetCard, {
-        backgroundColor: '#111111',
-        scale: 2, useCORS: true
-      }).then(c => {
-        const a = document.createElement('a');
-        a.download = 'magic-in-public.png';
-        a.href = c.toDataURL('image/png');
-        a.click();
-        toast.classList.remove('hidden');
-        toast.classList.add('show');
-        setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
+    /* --- Lazy-load html2canvas (Optimization: saves ~80KB on initial load) --- */
+    let h2cLoaded = null;
+    function loadHtml2Canvas() {
+      if (h2cLoaded) return h2cLoaded;
+      h2cLoaded = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        s.onload = () => resolve(window.html2canvas);
+        s.onerror = () => reject(new Error('Failed to load html2canvas'));
+        document.head.appendChild(s);
       });
-    });
+      return h2cLoaded;
+    }
+
+    function downloadCard(cardEl, filename, bgColor) {
+      loadHtml2Canvas().then(html2canvas => {
+        html2canvas(cardEl, {
+          backgroundColor: bgColor || '#111111',
+          scale: 2, useCORS: true
+        }).then(c => {
+          const a = document.createElement('a');
+          a.download = filename;
+          a.href = c.toDataURL('image/png');
+          a.click();
+          toast.classList.remove('hidden');
+          toast.classList.add('show');
+          setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
+        });
+      });
+    }
+
+    /* --- Download --- */
+    dlBtn.addEventListener('click', () => downloadCard(tweetCard, 'magic-in-public.png', '#111111'));
 
     /* --- Download Mom Card --- */
-    dlMomBtn.addEventListener('click', () => {
-      html2canvas(momCard, {
-        backgroundColor: '#111111',
-        scale: 2, useCORS: true
-      }).then(c => {
-        const a = document.createElement('a');
-        a.download = 'magic-mom-review.png';
-        a.href = c.toDataURL('image/png');
-        a.click();
-        toast.classList.remove('hidden');
-        toast.classList.add('show');
-        setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
-      });
-    });
+    dlMomBtn.addEventListener('click', () => downloadCard(momCard, 'magic-mom-review.png', '#111111'));
 
     /* --- Download YC Card --- */
-    dlYcBtn.addEventListener('click', () => {
-      html2canvas(ycCard, {
-        backgroundColor: '#0f0f0f',
-        scale: 2, useCORS: true
-      }).then(c => {
-        const a = document.createElement('a');
-        a.download = 'magic-yc-review.png';
-        a.href = c.toDataURL('image/png');
-        a.click();
-        toast.classList.remove('hidden');
-        toast.classList.add('show');
-        setTimeout(() => { toast.classList.remove('show'); toast.classList.add('hidden'); }, 2500);
-      });
-    });
+    dlYcBtn.addEventListener('click', () => downloadCard(ycCard, 'magic-yc-review.png', '#0f0f0f'));
 
     /* --- Edit --- */
     editBtn.addEventListener('click', () => {

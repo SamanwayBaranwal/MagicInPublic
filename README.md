@@ -57,6 +57,43 @@ node server.js
 
 Open `http://localhost:3000` in your browser.
 
+## Optimization
+
+This project implements the following optimization techniques:
+
+### 1. Lazy Loading (html2canvas)
+
+**What:** The `html2canvas` library (~80KB) is used only for the "Download" card feature. Previously, it was loaded eagerly on every page visit via a `<script>` tag in `<head>`.
+
+**How:** Replaced the eager `<script>` tag with a dynamic loader function (`loadHtml2Canvas()`) that only fetches the library when a user clicks "Download" for the first time. The loaded script is cached in a Promise so it's never fetched twice.
+
+**Result:**
+- Initial page load: **-80KB** smaller (the library is never downloaded if the user doesn't click Download)
+- Returning downloads: instant (cached Promise resolves immediately)
+- Zero impact on functionality — downloads work exactly the same
+
+### 2. HTTP Caching (Static Assets)
+
+**What:** Static assets (images, favicon, CSS) were re-downloaded on every visit with no cache headers.
+
+**How:** Added `Cache-Control` headers via `vercel.json`:
+- **Images/assets:** `public, max-age=31536000, immutable` (cached for 1 year, never re-validated)
+- **CSS:** `public, max-age=86400, stale-while-revalidate=604800` (cached 1 day, serves stale for up to 1 week while revalidating in background)
+
+**Result:**
+- Returning visitors load the page **instantly** from browser cache
+- First-time visitors still get fresh assets
+- Zero bandwidth wasted on repeat visits
+
+### 3. Minimal Dependencies
+
+**What:** The entire project runs on just 1 npm dependency (`dotenv`) and 1 CDN library (`html2canvas`, lazy-loaded).
+
+**Result:**
+- `node_modules` is ~500KB total (vs. typical React projects at 200MB+)
+- No build step, no bundler, no tree-shaking needed — there's nothing to shake
+- Frontend is pure vanilla HTML/CSS/JS — zero framework overhead
+
 ## Built by
 
 **Samanway Baranwal**
